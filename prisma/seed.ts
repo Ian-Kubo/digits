@@ -39,23 +39,6 @@ async function main() {
     });
   }
 
-  // Create default stuff
-  for (const data of config.defaultData) {
-    const condition = (data.condition as Condition) || Condition.good;
-
-    console.log(`  Adding stuff: ${JSON.stringify(data)}`);
-
-    await prisma.stuff.upsert({
-      where: { id: config.defaultData.indexOf(data) + 1 },
-      update: {},
-      create: {
-        name: data.name,
-        quantity: data.quantity,
-        owner: data.owner,
-        condition,
-      },
-    });
-  }
   for (const [index, contact] of config.defaultContacts.entries()) {
     console.log(`  Adding contact: ${contact.firstName} ${contact.lastName}`);
 
