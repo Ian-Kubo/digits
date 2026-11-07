@@ -12,7 +12,7 @@ const AdminPage = async () => {
       user: { email: string; id: string; name: string };
     } | null,
   );
-  const contacts = await prisma.contact.findMany({});
+  const contacts = await prisma.contact.findMany({ include: { notes: true } });
   const stuff = await prisma.stuff.findMany({});
   const users = await prisma.user.findMany({});
 
@@ -25,7 +25,7 @@ const AdminPage = async () => {
             <Row xs={1} md={2} lg={3} className="g-4">
               {contacts.map((contact) => (
                 <Col key={contact.id}>
-                  <ContactCardAdmin contact={contact} />
+                  <ContactCardAdmin contact={contact} notes={contact.notes} />
                 </Col>
               ))}
             </Row>
